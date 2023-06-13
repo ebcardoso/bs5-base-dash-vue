@@ -133,8 +133,8 @@ export default defineComponent({
   name: "HeaderInner",
   methods: {
     logout() {
-      localStorage.setItem('access_token', '');
-      localStorage.setItem('refresh_token', '');
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
       this.$router.push({ name: 'authLoginPath' });
     }
   }
