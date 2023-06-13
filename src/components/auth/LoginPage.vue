@@ -10,6 +10,11 @@
           </div>
           <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
           <div class="auth-form-container text-start">
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="alertMessage">
+              <strong>Failure:</strong> {{alertMessage}}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
             <form @submit.prevent="signin" class="auth-form login-form">
               <div class="email mb-3">
                 <label class="sr-only" for="signin-email">Email</label>
@@ -76,6 +81,7 @@
     name: 'LoginPage',
     data() {
       return {
+        alertMessage: '',
         username:'',
         password:''
       }
@@ -92,8 +98,12 @@
           localStorage.setItem('access_token', response.data.access);
           localStorage.setItem('refresh_token', response.data.refresh);
           this.$router.push({ name: "root" });
-        }).catch(e => { 
-          alert("Wrong Password");
+        }).catch(errors => {
+          if ((errors.code == 'ERR_NETWORK') || (errors.response.status >= 500)) {
+            this.alertMessage = 'Network error'
+          } else {
+            this.alertMessage = 'Wrong user or password'
+          }
         });
       }
     }
