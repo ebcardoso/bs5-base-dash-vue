@@ -67,11 +67,11 @@
             <button class="page-link" @click="previous_page">Previous</button>
           </li>
 
-          <li class="page-item" v-if="(currentPage-2 > 0) && (currentPage-2 <= datatable?.numberOfpages) && !button_next_active()"><a class="page-link" href="#">{{currentPage-2}}</a></li>
-          <li class="page-item" v-if="(currentPage-1 > 0)"><a class="page-link" href="#">{{currentPage-1}}</a></li>
-          <li class="page-item active" v-if="(datatable?.numberOfpages >= 1)"><a class="page-link" href="#">{{currentPage}}</a></li>
-          <li class="page-item" v-if="(currentPage+1 <= datatable?.numberOfpages)"><a class="page-link" href="#">{{currentPage+1}}</a></li>
-          <li class="page-item" v-if="(currentPage+2 <= datatable?.numberOfpages) && !button_previous_active()"><a class="page-link" href="#">{{currentPage+2}}</a></li>
+          <li class="page-item" v-if="(currentPage-2 > 0) && (currentPage-2 <= datatable?.numberOfpages) && !button_next_active()"><button class="page-link" @click="go_to_page(currentPage-2)">{{currentPage-2}}</button></li>
+          <li class="page-item" v-if="(currentPage-1 > 0)"><button class="page-link" @click="go_to_page(currentPage-1)">{{currentPage-1}}</button></li>
+          <li class="page-item active" v-if="(datatable?.numberOfpages >= 1)"><button class="page-link" @click="go_to_page(currentPage)">{{currentPage}}</button></li>
+          <li class="page-item" v-if="(currentPage+1 <= datatable?.numberOfpages)"><button class="page-link" @click="go_to_page(currentPage+1)">{{currentPage+1}}</button></li>
+          <li class="page-item" v-if="(currentPage+2 <= datatable?.numberOfpages) && !button_previous_active()"><button class="page-link" @click="go_to_page(currentPage+2)">{{currentPage+2}}</button></li>
 
           <li class="page-item" :class="[button_next_active() ? '' : 'disabled']">
             <button class="page-link" @click="next_page">Next</button>
@@ -103,6 +103,10 @@
       search():void {
         this.datatable?.filterItems(this.searchKey, 1);
         this.currentPage = 1;
+      },
+      go_to_page(page:number) {
+        this.currentPage = page;
+        this.datatable?.filterItems(this.searchKey, this.currentPage);
       },
       previous_page():void {
         if (this.currentPage != 1) {
