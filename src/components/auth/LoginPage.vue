@@ -10,8 +10,8 @@
           </div>
           <h2 class="auth-heading text-center mb-5">Log in to Portal</h2>
           <div class="auth-form-container text-start">
-            <div class="alert alert-danger alert-dismissible fade show" role="alert" v-if="alertMessage">
-              <strong>Failure:</strong> {{alertMessage}}
+            <div v-for="(alert, index) in alertMessages.slice(alertMessages.length-5, alertMessages.length)" :key="index" :class="['alert', `alert-${alert?.type}`, 'alert-dismissible', 'fade', 'show']" role="alert">
+              <strong>Failure:</strong> {{alert?.message}}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
 
@@ -81,7 +81,7 @@
     name: 'LoginPage',
     data() {
       return {
-        alertMessage: '',
+        alertMessages: [] as Array<Object>,
         username:'',
         password:''
       }
@@ -89,6 +89,10 @@
     mounted() {
       document.body.classList.add('app-login');
       document.body.classList.add('p-0');
+    },
+    unmounted() {
+      document.body.classList.remove('app-login');
+      document.body.classList.remove('p-0');
     },
     methods: {
       async signin() {
@@ -99,11 +103,18 @@
           localStorage.setItem('refresh_token', response.data.refresh);
           this.$router.push({ name: "root" });
         }).catch(errors => {
+          let message:string = '';
           if ((errors.code == 'ERR_NETWORK') || (errors.response.status >= 500)) {
-            this.alertMessage = 'Network error'
+            message = 'Network error';
           } else {
-            this.alertMessage = 'Wrong user or password'
+            message = 'Wrong user or password';
           }
+          this.alertMessages.push({
+            message: message,
+            type: 'danger' //success, warning or danger
+          });
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
         });
       }
     }

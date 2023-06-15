@@ -69,6 +69,10 @@ export default defineComponent({
   mounted() {
     document.body.classList.add('app-reset-password', 'p-0'); 
   },
+  unmounted() {
+    document.body.classList.remove('app-login');
+    document.body.classList.remove('p-0');
+  },
   methods: {
     async resetPasswordConfirm() {
       if (this.new_password.length < 8) {

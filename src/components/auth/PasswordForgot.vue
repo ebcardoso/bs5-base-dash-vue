@@ -68,6 +68,10 @@
     mounted() {
       document.body.classList.add('app-reset-password', 'p-0');
     },
+    unmounted() {
+      document.body.classList.remove('app-login');
+      document.body.classList.remove('p-0');
+    },
     methods: {
       async resetPassword() {
         await AuthService.resetPassword(this.email).then(response => {
