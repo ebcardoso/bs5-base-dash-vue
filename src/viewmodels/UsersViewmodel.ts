@@ -1,39 +1,40 @@
+import BaseViewmodel from "@/viewmodels/BaseViewmodel";
 import UsersDatatable from "@/datatables/UsersDatatable"
 import UsersService from "@/services/UsersService";
 import { User } from "@/models/User";
 
-export default class UsersViewmodel {
+export default class UsersViewmodel extends BaseViewmodel {
   datatable?:UsersDatatable;
-  titleIndex:string;
-  titleCreate:string;
-  titleShow:string;
 
   constructor() {
+    super();
     this.datatable = new UsersDatatable();
-    this.titleIndex = "Users";
-    this.titleCreate = "Create User";
-    this.titleShow = "Describe User";
   }
 
   getDatatable() {
     return this.datatable;
   }
 
-  getTitleIndex():string {
-    return this.titleIndex;
-  }
-
-  getTitleCreate():string {
-    return this.titleCreate;
-  }
-
-  getTitleShow():string {
-    return this.titleShow;
-  }
-
   //Route
   getRouteIndex():string {
     return 'usersIndexPath'
+  }
+
+  //Page Titles
+  getTitleIndex():string {
+    return "Users";
+  }
+
+  getTitleCreate():string {
+    return "Create User";
+  }
+
+  getTitleEdit():string {
+    return "Edit User";
+  }
+
+  getTitleShow():string {
+    return "Describe User";
   }
 
   //Form Fields
