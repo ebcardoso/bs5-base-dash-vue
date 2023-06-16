@@ -78,13 +78,21 @@ export default defineComponent({
   emits: ['saveForm'],
   data() {
     return {
-      titlePage: this.viewmodel?.getTitleCreate(),
+      titlePage: this.setTitlePage(),
       columnSize: 12/this.viewmodel?.fieldGroups().length
     }
   },
   methods: {
     submitForm() {
       this.$emit('saveForm');     
+    },
+    setTitlePage() {
+      const currentRoute:string = this.$route.name?.toString() || '';
+      if (currentRoute.includes('Edit')) {
+        return this.viewmodel?.getTitleEdit();
+      } else {
+        return this.viewmodel?.getTitleCreate();
+      }
     }
   }
 })
