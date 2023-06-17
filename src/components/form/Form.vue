@@ -5,6 +5,11 @@
     </div>
   </div> <!--//row-->
 
+  <div v-for="(alert, index) in viewmodel?.getAlertMessages()" :key="index" :class="['alert', `alert-${alert?.type}`, 'alert-dismissible', 'fade', 'show']" role="alert">
+    <strong>{{alert?.title}}</strong>{{alert?.message}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
   <form class="settings-form" @submit.prevent="submitForm">
     <div class="row">
       <div v-for="(group, index) in viewmodel?.fieldGroups()" :key="index" :class="['col-12', `col-md-${columnSize}`]">

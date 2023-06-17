@@ -27,6 +27,12 @@ export default defineComponent({
       await this.viewmodel?.saveModel(this.model).then(() => {
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
+      }).catch(() => {
+        this.viewmodel?.alertMessages.push({
+          title: 'Failure: ',
+          message: 'Error on create user',
+          type: 'danger' //success, warning or danger
+        });
       });
     }
   }

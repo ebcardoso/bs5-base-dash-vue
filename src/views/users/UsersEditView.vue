@@ -41,6 +41,12 @@ export default defineComponent({
       await this.viewmodel?.editModel(this.model).then(() => {
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
+      }).catch(() => {
+        this.viewmodel?.alertMessages.push({
+          title: 'Failure: ',
+          message: 'Error on edit user',
+          type: 'danger' //success, warning or danger
+        });
       });
     }
   }
