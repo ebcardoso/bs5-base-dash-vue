@@ -19,4 +19,7 @@ export default {
   delete:(id:string) => {
     return datasource.delete('api/users/'+id, getConfigs());
   },
+  myProfile:() => {
+    return datasource.get<User>('api/users/me', getConfigs());
+  }
 }
