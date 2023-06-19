@@ -39,6 +39,12 @@ const routes: Array<RouteRecordRaw> = [
     name: 'authResetPasswordConfirmPath',
     component: () => import('@/views/auth/ResetPasswordConfirmView.vue')
   },
+  //Profile
+  {
+    path: '/profile',
+    name: 'profilePath',
+    component: () => import('@/views/auth/ProfileView.vue')
+  },
   //Users
   {
     path: '/users',

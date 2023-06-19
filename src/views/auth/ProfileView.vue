@@ -26,11 +26,13 @@ export default defineComponent({
     async setModel() {
       await this.viewmodel?.findMyProfile().then(response => {
         this.model = response.data;
+      }).catch(() => {
+        this.viewmodel?.alertMessages.push({
+          title: 'Failure: ',
+          message: "Error on loading user's profile",
+          type: 'danger' //success, warning or danger
+        });
       });
-      // .catch(() => {
-      //   const destination_route = this.viewmodel?.getRouteIndex();
-      //   this.$router.push({ name: destination_route });
-      // });
     }
   }
 })
