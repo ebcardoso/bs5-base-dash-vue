@@ -1,10 +1,4 @@
 <template>
-  <div class="row g-3 mb-4 align-items-center justify-content-between">
-    <div class="col-auto">
-      <h1 class="app-page-title mb-0">{{titlePage}}</h1>
-    </div>
-  </div> <!--//row-->
-
   <div v-for="(alert, index) in viewmodel?.getAlertMessages()" :key="index" :class="['alert', `alert-${alert?.type}`, 'alert-dismissible', 'fade', 'show']" role="alert">
     <strong>{{alert?.title}}</strong>{{alert?.message}}
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -96,7 +90,6 @@ export default defineComponent({
   emits: ['saveForm'],
   data() {
     return {
-      titlePage: this.setTitlePage(),
       columnSize: 12/this.viewmodel?.fieldGroups().length
     }
   },
@@ -104,14 +97,6 @@ export default defineComponent({
     submitForm() {
       this.$emit('saveForm');     
     },
-    setTitlePage() {
-      const currentRoute:string = this.$route.name?.toString() || '';
-      if (currentRoute.includes('Edit')) {
-        return this.viewmodel?.getTitleEdit();
-      } else {
-        return this.viewmodel?.getTitleCreate();
-      }
-    }
   }
 })
 </script>

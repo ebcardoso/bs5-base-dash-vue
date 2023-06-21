@@ -16,7 +16,14 @@
     <div class="app-wrapper">
       <div class="app-content pt-3 p-md-3 p-lg-4">
         <div class="container-xl">
-          <router-view/>
+          <div class="row g-3 mb-4 align-items-center justify-content-between">
+            <div class="col-auto">
+              <h1 class="app-page-title mb-0">{{pageTitle}}</h1>
+            </div>
+          </div> <!--//row-->
+
+          <router-view 
+            @update:setPageTitle="newValue => pageTitle = newValue" />
         </div> <!--//container-fluid-->
       </div> <!--//app-content--> 
       <Footer />
@@ -33,6 +40,11 @@
     components:{
       Header,
       Footer
+    },
+    data() {
+      return {
+        pageTitle:'',
+      }
     },
     computed: {
       currentRouteName() {
