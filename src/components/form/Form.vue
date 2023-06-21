@@ -24,6 +24,11 @@
               :modelValue="modelFields[field.name]"
               @update:inputBooleanValue="newValue => modelFields[field.name] = newValue"
               :fieldLocals=field />
+            <DateField v-else-if="field.type === 'date'"
+              @update:inputDateValue="newValue => modelFields[field.name] = newValue"
+              :modelValue="modelFields[field.name]"
+              :fieldLocals=field
+              />
             <PasswordField v-else-if="field.type === 'password'"
               :modelValue="modelFields[field.name]"
               @update:inputPasswordValue="newValue => modelFields[field.name] = newValue"
@@ -66,6 +71,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import BooleanField from '@/components/form/BooleanField.vue';
+import DateField from '@/components/form/DateField.vue';
 import PasswordField from '@/components/form/PasswordField.vue';
 import TextField from '@/components/form/TextField.vue';
 
@@ -73,6 +79,7 @@ export default defineComponent({
   name: 'Form',
   components: {
     BooleanField,
+    DateField,
     PasswordField,
     TextField
   },
