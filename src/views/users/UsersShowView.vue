@@ -13,6 +13,9 @@ export default defineComponent({
   components: {
     ShowPage,
   },
+  emits: [
+    'update:setPageTitle'
+  ],
   data() {
     return {
       viewmodel: new UsersViewmodel(),
@@ -21,6 +24,9 @@ export default defineComponent({
     }
   },
   mounted() {
+    const pageTitle = this.viewmodel?.getTitleShow();
+    this.$emit('update:setPageTitle', pageTitle);
+    
     this.model_id = this.$route?.params?.id as string;
     this.setModel(this.model_id);
   },

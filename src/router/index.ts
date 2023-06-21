@@ -43,6 +43,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: 'profilePath',
+    beforeEnter: routerGuarder,
     component: () => import('@/views/auth/ProfileView.vue')
   },
   //Users

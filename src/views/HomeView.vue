@@ -1,9 +1,5 @@
-<template>    
-  <div class="row g-3 mb-4 align-items-center justify-content-between">
-    <div class="col-auto">
-      <h1 class="app-page-title mb-0">{{pageTitle}}</h1>
-    </div>
-  </div><!--//row-->
+<template>
+
 </template>
 
 <script lang="ts">
@@ -12,6 +8,9 @@
 
   export default defineComponent({
     name: 'HomeView',
+    emits: [
+      'update:setPageTitle'
+    ],
     data() {
       return {
         pageTitle: '',
@@ -19,7 +18,8 @@
       }
     },
     mounted() {
-      this.pageTitle = this.viewmodel?.getIndexTitle();
+      const pageTitle = this.viewmodel?.getIndexTitle();
+      this.$emit('update:setPageTitle', pageTitle);
     }
   });
 </script>

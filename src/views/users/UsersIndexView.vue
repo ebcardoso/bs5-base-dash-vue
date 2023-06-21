@@ -12,10 +12,17 @@ export default defineComponent({
   components: {
     IndexPage,
   },
+  emits: [
+    'update:setPageTitle'
+  ],
   data() {
     return {
       viewmodel: new UsersViewmodel()
     }
-  }
+  },
+  mounted() {
+    const pageTitle = this.viewmodel?.getTitleIndex();
+    this.$emit('update:setPageTitle', pageTitle);
+  },
 })
 </script>
