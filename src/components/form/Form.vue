@@ -33,6 +33,10 @@
               :modelValue="modelFields[field.name]"
               @update:inputPasswordValue="newValue => modelFields[field.name] = newValue"
               :fieldLocals=field />
+            <SelectField v-else-if="field.type === 'select'"
+              :modelValue="modelFields[field.name]"
+              @update:inputSelectValue="newValue => modelFields[field.name] = newValue"
+              :fieldLocals=field />
             <TextField v-else
               :modelValue="modelFields[field.name]"
               @update:inputTextValue="newValue => modelFields[field.name] = newValue"
@@ -73,6 +77,7 @@ import { defineComponent } from 'vue'
 import BooleanField from '@/components/form/BooleanField.vue';
 import DateField from '@/components/form/DateField.vue';
 import PasswordField from '@/components/form/PasswordField.vue';
+import SelectField from '@/components/form/SelectField.vue';
 import TextField from '@/components/form/TextField.vue';
 
 export default defineComponent({
@@ -81,6 +86,7 @@ export default defineComponent({
     BooleanField,
     DateField,
     PasswordField,
+    SelectField,
     TextField
   },
   props: {
