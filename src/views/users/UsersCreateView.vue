@@ -16,6 +16,9 @@ export default defineComponent({
   components: {
     Form,
   },
+  props: {
+    alerts:Array,
+  },
   emits: [
     'update:setPageTitle'
   ],
@@ -32,14 +35,22 @@ export default defineComponent({
   methods: {
     async saveModel() {
       await this.viewmodel?.saveModel(this.model).then(() => {
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'success',
+          '',
+          'User created successfully.'
+        );
+        
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
       }).catch(() => {
-        this.viewmodel?.alertMessages.push({
-          title: 'Failure: ',
-          message: 'Error on create user',
-          type: 'danger' //success, warning or danger
-        });
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'danger',
+          'Failure: ',
+          'Error to create user'
+        );
       });
     }
   }

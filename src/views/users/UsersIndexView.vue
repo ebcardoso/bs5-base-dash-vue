@@ -1,5 +1,5 @@
 <template>
-  <IndexPage :viewmodel=viewmodel />
+  <IndexPage :viewmodel=viewmodel :alerts=alerts />
 </template>
 
 <script lang="ts">
@@ -11,6 +11,9 @@ export default defineComponent({
   name: 'UsersIndexView',
   components: {
     IndexPage,
+  },
+  props: {
+    alerts:Array,
   },
   emits: [
     'update:setPageTitle'

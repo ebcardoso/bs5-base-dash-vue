@@ -16,6 +16,9 @@ export default defineComponent({
   components: {
     Form
   },
+  props: {
+    alerts:Array,
+  },
   emits: [
     'update:setPageTitle'
   ],
@@ -39,20 +42,33 @@ export default defineComponent({
         this.model = response.data;
         console.log(this.model);
       }).catch(() => {
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'danger',
+          'Failure: ',
+          'Error to load user'
+        );
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
       });
     },
     async editModel() {
       await this.viewmodel?.editModel(this.model).then(() => {
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'success',
+          '',
+          'User updated successfully.'
+        );
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
       }).catch(() => {
-        this.viewmodel?.alertMessages.push({
-          title: 'Failure: ',
-          message: 'Error on edit user',
-          type: 'danger' //success, warning or danger
-        });
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'danger',
+          'Failure: ',
+          'Error to update user'
+        );
       });
     }
   }

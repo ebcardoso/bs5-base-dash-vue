@@ -13,6 +13,9 @@ export default defineComponent({
   components: {
     ShowPage,
   },
+  props: {
+    alerts:Array,
+  },
   emits: [
     'update:setPageTitle'
   ],
@@ -36,6 +39,12 @@ export default defineComponent({
         this.model = response.data;
         console.log(this.model);
       }).catch(() => {
+        this.viewmodel?.createAlert(
+          this.alerts,
+          'danger',
+          'Failure: ',
+          'Error to load user'
+        );
         const destination_route = this.viewmodel?.getRouteIndex();
         this.$router.push({ name: destination_route });
       });
