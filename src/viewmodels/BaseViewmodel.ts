@@ -1,3 +1,5 @@
+import { AlertMessage } from "@/models/AlertMessage";
+
 interface IViewmodel {
   getRouteIndex():string,
   getTitleIndex():string,
@@ -7,10 +9,12 @@ interface IViewmodel {
 }
 
 export default class BaseViewmodel implements IViewmodel {
+  //Default Index Route
   getRouteIndex():string {
     return 'root';
   }
 
+  //Default Title Pages
   getTitleIndex():string {
     return 'Index';
   }
@@ -25,5 +29,15 @@ export default class BaseViewmodel implements IViewmodel {
 
   getTitleShow():string {
     return 'Show';
+  }
+
+  //Create Alerts
+  createAlert(alerts:any, type:string, title:string, message:string) {
+    const newAlert:AlertMessage = {
+      type: type,
+      title: title,
+      message: message
+    }
+    alerts?.push(newAlert);
   }
 }

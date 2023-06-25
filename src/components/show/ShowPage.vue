@@ -1,9 +1,4 @@
 <template>
-  <div v-for="(alert, index) in viewmodel?.getAlertMessages()" :key="index" :class="['alert', `alert-${alert?.type}`, 'alert-dismissible', 'fade', 'show']" role="alert">
-    <strong>{{alert?.title}}</strong>{{alert?.message}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-
   <div class="row gy-4">
     <div v-for="(group, index) in viewmodel?.fieldGroups()" :key="index" :class="['col-12', `col-lg-${columnSize}`]">
       <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">

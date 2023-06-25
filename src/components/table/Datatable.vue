@@ -88,10 +88,12 @@
   export default defineComponent({
     name: "Datatable",
     props: {
-      datatable: Object
+      viewmodel:Object,
+      alerts:Array
     },
     data() {
       return {
+        datatable: this.viewmodel?.getDatatable(),
         searchKey: '',
         currentPage: 1,
       }
@@ -135,7 +137,20 @@
       async deleteItem(id:string) {
         if (confirm("Are you sure?") == true) {
           await this.datatable?.deleteItem(id).then(() => {
+            this.viewmodel?.createAlert(
+              this.alerts,
+              'success',
+              '',
+              'Team deleted successfully.'
+            );
             this.datatable?.filterItems(this.searchKey, this.currentPage);
+          }).catch(() => {
+            this.viewmodel?.createAlert(
+              this.alerts,
+              'danger',
+              'Failure: ',
+              'Error to delete team'
+            );
           });
         }
       },

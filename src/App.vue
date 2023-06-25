@@ -22,7 +22,13 @@
             </div>
           </div> <!--//row-->
 
+          <div v-for="(alert, index) in alerts" :key="index" :class="['alert', `alert-${alert?.type}`, 'alert-dismissible', 'fade', 'show']" role="alert">
+            <strong>{{alert?.title}}</strong>{{alert?.message}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+
           <router-view 
+            :alerts="alerts"
             @update:setPageTitle="newValue => pageTitle = newValue" />
         </div> <!--//container-fluid-->
       </div> <!--//app-content--> 
@@ -35,6 +41,7 @@
   import Header from "@/components/layout/Header.vue"
   import Footer from "@/components/layout/Footer.vue"
   import { defineComponent } from "vue"
+  import { AlertMessage } from "@/models/AlertMessage"
 
   export default defineComponent({
     components:{
@@ -44,6 +51,7 @@
     data() {
       return {
         pageTitle:'',
+        alerts: [] as Array<AlertMessage>
       }
     },
     computed: {

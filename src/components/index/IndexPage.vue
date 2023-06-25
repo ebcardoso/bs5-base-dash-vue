@@ -1,5 +1,5 @@
 <template>
-  <Datatable :datatable=datasource />
+  <Datatable :viewmodel=viewmodel :alerts="alerts" />
 </template>
 
 <script lang="ts">
@@ -13,6 +13,7 @@ export default defineComponent({
   },
   props: {
     viewmodel:Object,
+    alerts:Array,
   },
   data() {
     return {
