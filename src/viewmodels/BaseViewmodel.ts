@@ -2,6 +2,7 @@ import { AlertMessage } from "@/models/AlertMessage";
 
 interface IViewmodel {
   getRouteIndex():string,
+  getCreateRoute():string,
   getTitleIndex():string,
   getTitleCreate():string,
   getTitleEdit():string,
@@ -11,6 +12,10 @@ interface IViewmodel {
 export default class BaseViewmodel implements IViewmodel {
   //Default Index Route
   getRouteIndex():string {
+    return 'root';
+  }
+
+  getCreateRoute():string {
     return 'root';
   }
 
@@ -39,5 +44,10 @@ export default class BaseViewmodel implements IViewmodel {
       message: message
     }
     alerts?.push(newAlert);
+  }
+
+  //Control Exhibition of Page Items
+  canShowCreateButton():boolean {
+    return true;
   }
 }

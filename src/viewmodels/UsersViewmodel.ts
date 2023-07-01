@@ -4,17 +4,11 @@ import UsersService from "@/services/UsersService";
 import { User } from "@/models/User";
 
 export default class UsersViewmodel extends BaseViewmodel {
-  alertMessages:Array<Object>;
   datatable?:UsersDatatable;
 
   constructor() {
     super();
-    this.alertMessages = [];
     this.datatable = new UsersDatatable();
-  }
-
-  getAlertMessages() {
-    return this.alertMessages;
   }
 
   getDatatable() {
@@ -24,6 +18,10 @@ export default class UsersViewmodel extends BaseViewmodel {
   //Route
   getRouteIndex():string {
     return 'usersIndexPath'
+  }
+
+  getCreateRoute():string {
+    return 'usersCreatePath';
   }
 
   //Page Titles

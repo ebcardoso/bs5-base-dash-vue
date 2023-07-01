@@ -1,18 +1,23 @@
 <template>
   <div class="row g-3 mb-4 align-items-center justify-content-between">
     <div class="col-auto">
+      <div class="col-auto">
+        <form @submit.prevent="search" class="docs-search-form row gx-1 align-items-center">
+          <div class="col-auto">
+            <input type="text" v-model="searchKey" id="search-docs" name="searchdocs" class="form-control search-docs" placeholder="Search">
+          </div>
+          <div class="col-auto">
+            <button type="submit" class="btn app-btn-secondary">Search</button>
+          </div>
+        </form>
+      </div><!--//col-->
+    </div>
+    <div class="col-auto">
       <div class="page-utilities">
         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-          <div class="col-auto">
-            <form @submit.prevent="search" class="table-search-form row gx-1 align-items-center">
-              <div class="col-auto">
-                <input type="text" v-model="searchKey" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
-              </div>
-              <div class="col-auto">
-                <button type="submit" class="btn app-btn-secondary">Search</button>
-              </div>
-            </form> 
-          </div><!--//col-->
+          <div class="col-auto" v-if="canShowCreateButton">
+            <router-link :to="{name:createItemRoute}" class="btn app-btn-primary">Create</router-link>
+          </div>
         </div><!--//row-->
       </div><!--//table-utilities-->
     </div><!--//col-auto-->
@@ -94,6 +99,8 @@
     data() {
       return {
         datatable: this.viewmodel?.getDatatable(),
+        createItemRoute: this.viewmodel?.getCreateRoute(),
+        canShowCreateButton: this.viewmodel?.canShowCreateButton(),
         searchKey: '',
         currentPage: 1,
       }
@@ -140,8 +147,8 @@
             this.viewmodel?.createAlert(
               this.alerts,
               'success',
-              '',
-              'Team deleted successfully.'
+              'Success: ',
+              'Item deleted.'
             );
             this.datatable?.filterItems(this.searchKey, this.currentPage);
           }).catch(() => {
@@ -149,7 +156,7 @@
               this.alerts,
               'danger',
               'Failure: ',
-              'Error to delete team'
+              'Error to delete item'
             );
           });
         }
